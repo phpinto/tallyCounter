@@ -1,0 +1,2 @@
+# tallyCounter
+Tally Counter.
