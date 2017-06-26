@@ -30,5 +30,8 @@ if(isset($_POST["export"])){
         header('Content-Disposition: attachment; filename="data.xls"');
         echo $output;
     }
+    else{
+        header("Location: download.php");
+    }
 }
 ?>
