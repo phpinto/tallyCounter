@@ -18,8 +18,18 @@ $conn = open_db();
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tally Counter</title>
     <link rel="stylesheet" type="text/css" media="screen" href="css/screen.css">
+    <script src="css/sweetalert-master/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/sweetalert-master/dist/sweetalert.css">
 </head>
 <body>
+
+<div class="login">
+    <form class="login-container" action="#" method="POST" >
+        <p><input type="text" name="name" placeholder="User's  Name"></p>
+        <p><input type="password" name="password" placeholder="Password"></p>
+        <p><input name="submit" type="submit" value="Add User"></p>
+    </form>
+</div>
 
 <nav class="screen"">
 <ul>
@@ -44,6 +54,51 @@ $conn = open_db();
     ?>
 </ul>
 </nav>
+
+<?php
+
+if (isset($_POST["submit"])&&isset($_POST["name"])&&isset($_POST["password"])) {
+
+    $name = strip_tags($_POST['name']);
+    $password = strip_tags($_POST['password']);
+
+    $name = stripslashes($name);
+    $password = stripslashes($password);
+
+    $name = mysqli_real_escape_string($conn, $name);
+    $password = mysqli_real_escape_string($conn, $password);
+
+    $password = md5($password);
+
+    if ($password != Config::password) {
+        print '<script language="javascript">';
+        print 'sweetAlert("Oops...", "Your password was incorrect!", "error")';
+        print '</script>';
+    } else if (!ctype_alpha($name)){
+        print '<script language="javascript">';
+        print 'sweetAlert("Oops...", "Make sure all characters are valid letters!", "error")';
+        print '</script>';
+    }
+    else {
+        $name = ucfirst(strtolower($name));
+        $sql = "INSERT INTO `usertable` (Name) VALUES ('{$name}')";
+        if (mysqli_query($conn, $sql)){
+            echo '<script>
+                  setTimeout(function() {
+                  swal({
+                  title: "Success!",
+                  text: "You have successfully added '.$name.' to the user table.",
+                  type: "success"
+                  }, function() {
+                  window.location = "logs.php";
+                  });
+                  }, 50);
+                  </script>';
+        }
+    }
+}
+?>
+
 </body>
 </html>
 
