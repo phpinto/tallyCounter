@@ -255,7 +255,7 @@ echo '<br><br><br><br><br><br>
           <th class="text-center">Apr</th>
           <th class="text-center">May</th>
           <th class="text-center">Jun</th>
-          <th class="text-center">Jul</th>
+          <th class="text-center">&nbsp;Jul&nbsp;</th>
           <th class="text-center">Aug</th>
           <th class="text-center">Sep</th>
           <th class="text-center">Oct</th>
