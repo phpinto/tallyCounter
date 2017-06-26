@@ -38,8 +38,8 @@ $conn = open_db();
     <?php
     if(isset($_SESSION['login'])) {
         echo '<li class="logout">
-            <a title="Log Out" class="logout" href=".?logout=true">Logout</a>
-        </li>';
+              <a title="Log Out" class="logout" href=".?logout=true">Logout</a>
+              </li>';
     }
     ?>
 </ul>

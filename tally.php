@@ -95,7 +95,7 @@ if($size != 0) {
     background: white;
     border-radius:3px;
     border-collapse: collapse;
-    height: 320px;
+    height: 200px;
     margin: auto;
     max-width: 300px;
     padding:5px;
@@ -111,7 +111,7 @@ th {
     border-right: 1px solid #343a45;
     font-size:20px;
     font-weight: 100;
-    padding:15px;
+    padding:10px;
     text-align:left;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     vertical-align:middle;
