@@ -7,7 +7,6 @@ require 'includes/dbfunctions.php';
 
 $conn = open_db();
 
-
 ?>
 
 <!DOCTYPE HTML>
@@ -20,6 +19,12 @@ $conn = open_db();
     <link rel="stylesheet" type="text/css" media="screen" href="css/screen.css">
 </head>
 <body>
+
+<div class="login">
+    <form class="login-container" method="POST" action="excel.php">
+        <p><input name="export" type="submit" value="Download data to Excel"></p>
+    </form>
+</div>
 
 
 <nav class="screen"">
@@ -45,6 +50,7 @@ $conn = open_db();
     ?>
 </ul>
 </nav>
+
 </body>
 </html>
 
