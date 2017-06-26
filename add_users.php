@@ -69,6 +69,11 @@ if (isset($_POST["submit"])&&isset($_POST["name"])&&isset($_POST["password"])) {
     $password = mysqli_real_escape_string($conn, $password);
 
     $password = md5($password);
+    $name = ucfirst(strtolower($name));
+
+    $sql = "SELECT * FROM `usertable` WHERE `Name`='{$name}'";
+    $result = mysqli_query($conn, $sql);
+    $size = mysqli_num_rows($result);
 
     if ($password != Config::password) {
         print '<script language="javascript">';
@@ -78,9 +83,11 @@ if (isset($_POST["submit"])&&isset($_POST["name"])&&isset($_POST["password"])) {
         print '<script language="javascript">';
         print 'sweetAlert("Oops...", "Make sure all characters are valid letters!", "error")';
         print '</script>';
-    }
-    else {
-        $name = ucfirst(strtolower($name));
+    } else if ($size != 0){
+        print '<script language="javascript">';
+        print 'sweetAlert("Oops...", "'.$name.' is already in the user table.", "error")';
+        print '</script>';
+    } else {
         $sql = "INSERT INTO `usertable` (Name) VALUES ('{$name}')";
         if (mysqli_query($conn, $sql)){
             echo '<script>
