@@ -50,10 +50,25 @@ $conn = open_db();
 $name = $_SESSION["login"];
 $date = date("Y-m-d");
 $month = date("n");
+$month_name = date("F");
+$year = date("Y");
 $query = "SELECT `userID` FROM `usertable` WHERE `Name`='{$name}'";
 $result = mysqli_query($conn, $query);
 $array = mysqli_fetch_assoc($result);
 $id = $array['userID'];
+
+$sql = "SELECT `Total` FROM `totals` WHERE `userID`='{$id}' AND `Month`='{$month_name}' AND `Year`='{$year}'";
+$current_result = mysqli_query($conn, $sql);
+if(mysqli_num_rows($current_result) != 0) {
+    $current_array = mysqli_fetch_assoc($current_result);
+    $current = $current_array['Total'];
+}
+else{
+    $current = 0;
+    $sql = "INSERT INTO `totals` (userID,Name,Month,Year,Total) VALUES ('{$id}' ,'{$name}', '{$month_name}' , '{$year}','{$current}')";
+    mysqli_query($conn, $sql);
+}
+
 
 
 $sql = "SELECT * FROM `logtable` WHERE `userID`='{$id}'";
@@ -233,17 +248,18 @@ td.text-right {
 }
 
 if (isset($_POST["submit"])) {
-    $type = $_POST["type"];
     $sql = "INSERT INTO `logtable` (userID,Name,Month,Date) VALUES ('{$id}' , '{$name}' , '{$month}','{$date}')";
+    mysqli_query($conn, $sql);
+    $current++;
+    $sql = "UPDATE `totals` 
+            SET Total = '{$current}'
+            WHERE userID='{$id}' AND Month='{$month_name}' AND Year='{$year}'";
     mysqli_query($conn, $sql);
     echo '<script type="text/javascript">
           window.location.href = \'index.php\';
           </script>';
     
 }
-
-
-
 
 ?>
 
