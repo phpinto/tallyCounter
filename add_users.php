@@ -25,7 +25,7 @@ $conn = open_db();
 
 <div class="login">
     <form class="login-container" action="#" method="POST" >
-        <p><input type="text" name="name" placeholder="User's  Name"></p>
+        <p><input type="text" name="name" placeholder="New Employee's Name"></p>
         <p><input type="password" name="password" placeholder="Password"></p>
         <p><input name="submit" type="submit" value="Add User"></p>
     </form>
